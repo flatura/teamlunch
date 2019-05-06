@@ -7,17 +7,17 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-//@Entity
-//@Table(name = "Dishes")
+@Entity
+@Table(name = "Dishes")
 public class Dish extends AbstractNamedEntity {
 
-    //@Column(name = "date")
+    @Column(name = "date")
     private LocalDate date;
 
-    //@Column(name = "restaurant_id")
+    @Column(name = "restaurant_id")
     private UUID restaurantId;
 
-    //@Column(name = "price")
+    @Column(name = "price")
     private BigDecimal price;
 
     public BigDecimal getPrice() {

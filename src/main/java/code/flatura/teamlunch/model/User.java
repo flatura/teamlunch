@@ -6,20 +6,20 @@ import javax.persistence.*;
 import java.util.*;
 
 public class User extends AbstractNamedEntity {
-    //@Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    //@Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    //@Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
+    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 
-    //@Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     private Date registered = new Date();
 
-    //@Enumerated(EnumType.STRING)
-    //@Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Set<Role> roles;
 
     //@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)

@@ -7,20 +7,20 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.*;
 
-//@Entity
-//@Table(name = "restaurants")
+@Entity
+@Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
 
     // TODO Сделать threadsafe!
 
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private Set<Dish> dishes;
 
-    //@Column(name = "votes")
+    @Column(name = "votes")
     BigDecimal votes = new BigDecimal(0);
 
-    //@Column(name = "deleted")
-    private boolean deleted;
+    @Column(name = "deleted")
+    private boolean deleted  = false;
 
     public Restaurant(String name, Set<Dish> dishes) {
         this.setName(name);
