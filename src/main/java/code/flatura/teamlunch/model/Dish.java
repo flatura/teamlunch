@@ -19,7 +19,6 @@ public class Dish extends AbstractNamedEntity {
     @NotNull
     LocalDate date;
 
-    @Column(name = "restaurant")
     @JoinColumn(name = "restaurant_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull

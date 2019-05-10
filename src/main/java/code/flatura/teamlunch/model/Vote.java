@@ -18,12 +18,12 @@ public class Vote extends AbstractBaseEntity {
     private LocalDate date;
 
     @NotNull
-    @Column(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private User user;
 
     @NotNull
-    @Column(name = "restaurant_id", nullable = false)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Restaurant restaurant;
 

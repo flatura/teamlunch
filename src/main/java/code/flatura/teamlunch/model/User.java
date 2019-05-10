@@ -10,6 +10,8 @@ import java.util.*;
  *  Has a email, password, registered, role properties, enabled flag and also delegated name and id.
  *  @author Dmitry Morozov for TeamLunch Graduation Project
  */
+@Entity
+@Table(name = "users")
 public class User extends AbstractNamedEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
