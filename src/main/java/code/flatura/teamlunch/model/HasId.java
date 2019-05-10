@@ -1,9 +1,7 @@
 package code.flatura.teamlunch.model;
 
-import java.util.UUID;
-
 public interface HasId {
-    UUID getId();
+    Integer getId();
 
-    void setId(UUID id);
+    void setId(Integer id);
 }

@@ -6,8 +6,8 @@ import java.util.UUID;
 
 
 /**
- * Simple JavaBean domain object adds a name property to <code>BaseEntity</code>. Used as a base class for objects
- * needing these properties.
+ * Simple JavaBean, Used as a base class for objects needing name property.
+ * @author edited by Dmitry Morozov for TeamLunch Graduation Project
  */
 @MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {
@@ -18,7 +18,7 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
     protected AbstractNamedEntity() {
     }
 
-    protected AbstractNamedEntity(UUID id, String name) {
+    protected AbstractNamedEntity(Integer id, String name) {
         super(id);
         this.name = name;
     }

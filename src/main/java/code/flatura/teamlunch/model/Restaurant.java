@@ -4,20 +4,18 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.*;
 
+/**
+ * JavaBean used for .
+ * Has dishes property, deleted flag and also delegated name and id.
+ * @author Dmitry Morozov for TeamLunch Graduation Project
+ */
 @Entity
-@Table(name = "restaurants")
+@Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurant_name_idx")})
 public class Restaurant extends AbstractNamedEntity {
-
-    // TODO Сделать threadsafe!
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private Set<Dish> dishes;
-
-    @Column(name = "votes")
-    BigDecimal votes = new BigDecimal(0);
 
     @Column(name = "deleted")
     private boolean deleted  = false;
@@ -25,10 +23,6 @@ public class Restaurant extends AbstractNamedEntity {
     public Restaurant(String name, Set<Dish> dishes) {
         this.setName(name);
         this.dishes = dishes;
-    }
-
-    public int getVotes() {
-        return votes.intValue();
     }
 
     protected Set<Dish> getDishesInternal() {
@@ -49,5 +43,13 @@ public class Restaurant extends AbstractNamedEntity {
         //if (dish.isNew()) {
             getDishesInternal().add(dish);
         //}
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                ", name='" + name + '\'' +
+                ", deleted=" + deleted +
+                '}';
     }
 }

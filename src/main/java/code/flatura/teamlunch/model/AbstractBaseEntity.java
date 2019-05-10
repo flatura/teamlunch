@@ -16,15 +16,14 @@
 package code.flatura.teamlunch.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.UUID;
+import java.util.Objects;
 
 /**
- * Simple JavaBean domain object with an id property. Used as a base class for objects
- * needing this property.
+ * Simple JavaBean used as a base class for objects needing id property.
  *
  * @author Ken Krebs
  * @author Juergen Hoeller
+ * @author edited by Dmitry Morozov for TeamLunch Graduation Project
  */
 @MappedSuperclass
 public abstract class AbstractBaseEntity implements HasId {
@@ -32,17 +31,24 @@ public abstract class AbstractBaseEntity implements HasId {
 
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @Column(name = "id", unique = true, nullable = false, columnDefinition = "integer default nextval('global_seq')")
+    //@Column(name = "id", unique = true, nullable = false, columnDefinition = "integer default nextval('global_seq')")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
 //  See https://hibernate.atlassian.net/browse/HHH-3718 and https://hibernate.atlassian.net/browse/HHH-12034
 //  Proxy initialization when accessing its identifier managed now by JPA_PROXY_COMPLIANCE setting
-    private UUID id;
+    private Integer id;
 
-    public UUID getId() {
+    protected AbstractBaseEntity(Integer id) {
+        this.id = id;
+    }
+
+    protected AbstractBaseEntity() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,11 +56,16 @@ public abstract class AbstractBaseEntity implements HasId {
         return this.id == null;
     }
 
-    protected AbstractBaseEntity(UUID id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractBaseEntity that = (AbstractBaseEntity) o;
+        return id.equals(that.id);
     }
 
-    protected AbstractBaseEntity() {
+    @Override
+    public int hashCode() {
+        return id != null ? Objects.hash(id) : 0;
     }
-
 }
