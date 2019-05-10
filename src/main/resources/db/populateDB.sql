@@ -11,41 +11,41 @@ FROM users;
 
 ALTER SEQUENCE global_seq RESTART WITH 10000;
 
-INSERT INTO restaurants (title, location)
-VALUES ('Local', '33 Dark Spurt, Lviv'),
-       ('Panorama', '44 Zankoveckoj street, Lviv'),
-       ('Kruivka', '11 Mykolaja street, Ternopil'),
-       ('Varenuku', '101 Filbert street, Lviv'),
-       ('Frontos', '2 Chapel street, Lviv'),
-       ('Shekspire', '17 Kosmonavtov street, Lviv'),
-       ('Fransua', '44 Lenina street, Lviv');
+INSERT INTO restaurants (id, name)
+VALUES (0, 'Tanuki'),
+       (1, 'Чайхона 1'),
+       (2, 'Дурдинъ');
 
-INSERT INTO dishes (name, price, restaurant_id)
-VALUES ('Calamari', 33, 1001),
-       ('Meat balls + Deruny', 112, 1000),
-       ('Cabbage rolls', 52, 1002),
-       ('Omelette', 27, 1000),
-       ('Casserole', 72, 1003),
-       ('Fish and chips', 108, 1006),
-       ('Mint tea', 25, 1005),
-       ('Champagne', 50, 1004),
-       ('Cutlet + spaghetti', 62, 1001);
+INSERT INTO dishes (id, name, price, restaurant_id)
+VALUES (0, 'Ролл Филадельфия', 250, 0),
+       (1, 'Рис с овощами', 300, 0),
+       (2, 'Чай имбирный', 150, 0),
+       (3, 'Шурпа', 230, 1),
+       (4, 'Чахокбили', 450, 1),
+       (5, 'Бокал вина', 220, 1),
+       (6, 'Борщ', 180, 2),
+       (7, 'Свиная рулька', 800, 2),
+       (8, 'Светлое пиво', 200, 2);
 
 /*
  *  Encrypted passwords(bcrypt algorithm):
  *  admin --> $2a$10$nkIkAuiTPDwI1apyvvkALuGjLzlH4z6drw.P4.kRTzWnV7c5eai9K
- *  herbert --> $2a$10$38QCKfvthp4JuEg1Rar7je4KHF9mVoaH0dZpGdP/BCMOeq/.scZx2
  *  12345678 --> $2a$10$d1nYOalJluNlt5K/BPUnlOKT5A3LZ7irNzR2..vuorxd3SXkOwsSm
  */
-INSERT INTO users (name, email, password)
-VALUES ('Admin', 'admin@gmail.com', '$2a$10$nkIkAuiTPDwI1apyvvkALuGjLzlH4z6drw.P4.kRTzWnV7c5eai9K'),
-       ('Herbert', 'herbert@gmail.com', '$2a$10$38QCKfvthp4JuEg1Rar7je4KHF9mVoaH0dZpGdP/BCMOeq/.scZx2'),
-       ('Dominik', 'dominik@gmail.com', '$2a$10$d1nYOalJluNlt5K/BPUnlOKT5A3LZ7irNzR2..vuorxd3SXkOwsSm');
+INSERT INTO users (id, name, email, password)
+VALUES (0, 'Admin', 'admin@gmail.com', '$2a$10$nkIkAuiTPDwI1apyvvkALuGjLzlH4z6drw.P4.kRTzWnV7c5eai9K'),
+       (1, 'User1', 'user1@gmail.com', '$2a$10$d1nYOalJluNlt5K/BPUnlOKT5A3LZ7irNzR2..vuorxd3SXkOwsSm'),
+       (2, 'User2', 'user2@gmail.com', '$2a$10$d1nYOalJluNlt5K/BPUnlOKT5A3LZ7irNzR2..vuorxd3SXkOwsSm');
 
 INSERT INTO user_roles (user_id, role)
-VALUES (1018, 'ROLE_USER'),
-       (1017, 'ROLE_USER'),
-       (1016, 'ROLE_ADMIN');
+VALUES (0, 'ROLE_USER'),
+       (1, 'ROLE_USER'),
+       (2, 'ROLE_ADMIN');
 
-INSERT INTO votes (user_id, restaurant_id)
-VALUES (1017, 1001);
+INSERT INTO votes (date, user_id, restaurant_id)
+VALUES ('2019-03-20', 0, 0);
+VALUES ('2019-03-20', 1, 1);
+VALUES ('2019-03-20', 2, 0);
+VALUES ('2019-03-21', 0, 1);
+VALUES ('2019-03-21', 1, 2);
+VALUES ('2019-03-21', 2, 2);

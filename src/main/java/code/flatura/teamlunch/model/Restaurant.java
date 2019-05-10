@@ -2,6 +2,7 @@ package code.flatura.teamlunch.model;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
 import java.util.*;
@@ -15,41 +16,30 @@ import java.util.*;
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurant_name_idx")})
 public class Restaurant extends AbstractNamedEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    @OrderBy("date DESC")
     private Set<Dish> dishes;
 
-    @Column(name = "deleted")
-    private boolean deleted  = false;
+    @Column(name = "enabled")
+    private boolean enabled = true;
 
     public Restaurant(String name, Set<Dish> dishes) {
         this.setName(name);
         this.dishes = dishes;
     }
 
-    protected Set<Dish> getDishesInternal() {
-        if (this.dishes == null) {
-            this.dishes = new HashSet<>();
-        }
-        return this.dishes;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public List<Dish> getDishes() {
-        List<Dish> sortedDishes = new ArrayList<>(getDishesInternal());
-        PropertyComparator.sort(sortedDishes,
-                new MutableSortDefinition("name", true, true));
-        return Collections.unmodifiableList(sortedDishes);
-    }
-
-    public void addDish(Dish dish) {
-        //if (dish.isNew()) {
-            getDishesInternal().add(dish);
-        //}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override
     public String toString() {
         return "Restaurant{" +
                 ", name='" + name + '\'' +
-                ", deleted=" + deleted +
+                ", enabled=" + enabled +
                 '}';
     }
 }
