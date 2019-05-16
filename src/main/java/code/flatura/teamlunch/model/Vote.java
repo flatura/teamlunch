@@ -10,7 +10,7 @@ import java.time.LocalDate;
  *  @author Dmitry Morozov for TeamLunch Graduation Project
  */
 @Entity
-@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "user_date_idx")})
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "user_unique_vote_idx")})
 public class Vote extends AbstractBaseEntity {
 
     @NotNull
@@ -19,12 +19,12 @@ public class Vote extends AbstractBaseEntity {
 
     @NotNull
     @JoinColumn(name = "user_id", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @NotNull
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "restaurant_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Restaurant restaurant;
 
     public Vote() {

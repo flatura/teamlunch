@@ -16,6 +16,7 @@
 package code.flatura.teamlunch.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -26,7 +27,7 @@ import java.util.Objects;
  * @author edited by Dmitry Morozov for TeamLunch Graduation Project
  */
 @MappedSuperclass
-public abstract class AbstractBaseEntity implements HasId {
+public abstract class AbstractBaseEntity implements Serializable {
     public static final int START_SEQ = 100000;
 
     @Id
@@ -35,7 +36,7 @@ public abstract class AbstractBaseEntity implements HasId {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
 //  See https://hibernate.atlassian.net/browse/HHH-3718 and https://hibernate.atlassian.net/browse/HHH-12034
 //  Proxy initialization when accessing its identifier managed now by JPA_PROXY_COMPLIANCE setting
-    private Integer id;
+    protected Integer id;
 
     protected AbstractBaseEntity(Integer id) {
         this.id = id;

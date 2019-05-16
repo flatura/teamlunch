@@ -15,16 +15,22 @@ import java.util.*;
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurant_name_idx")})
 public class Restaurant extends AbstractNamedEntity {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    /*
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "restaurant")
     @OrderBy("date DESC")
     private Set<Dish> dishes;
+    */
 
     @Column(name = "enabled")
     private boolean enabled = true;
 
-    public Restaurant(String name, Set<Dish> dishes) {
+    //public Restaurant(String name, Set<Dish> dishes) {
+    public Restaurant(String name) {
         this.setName(name);
-        this.dishes = dishes;
+        //this.dishes = dishes;
+    }
+
+    public Restaurant() {
     }
 
     public boolean isEnabled() {
@@ -37,7 +43,7 @@ public class Restaurant extends AbstractNamedEntity {
 
     @Override
     public String toString() {
-        return "Restaurant{" +
+        return "Restaurant{" + getId() +
                 ", name='" + name + '\'' +
                 ", enabled=" + enabled +
                 '}';

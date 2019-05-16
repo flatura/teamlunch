@@ -4,7 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 
 /**
  * JavaBean used for everyday filling the menu.
@@ -12,24 +11,31 @@ import java.util.UUID;
  * @author Dmitry Morozov for TeamLunch Graduation Project
  */
 @Entity
-@Table(name = "dishes", uniqueConstraints = { @UniqueConstraint(columnNames = "name", name = "dishes_name_idx")} )
+@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "restaurant_id", "date"}, name = "unique_dish_idx")})
 public class Dish extends AbstractNamedEntity {
 
-    @Column(name = "date")
     @NotNull
+    @Column(name = "date")
     LocalDate date;
 
-    @JoinColumn(name = "restaurant_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    // TODO insert reference instead of int
     @NotNull
+    @JoinColumn(name = "restaurant_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Restaurant restaurant;
 
-    @Column(name = "price")
     @NotNull
+    @Column(name = "price")
     private BigDecimal price;
 
-    public Dish(UUID id, Restaurant restaurant, BigDecimal price) {
+    public Dish(@NotNull Integer id, @NotNull Restaurant restaurant, @NotNull BigDecimal price) {
 
+        this.restaurant = restaurant;
+        this.price = price;
+    }
+
+    public Dish(@NotNull LocalDate date, @NotNull Restaurant restaurant, @NotNull BigDecimal price) {
+        this.date = date;
         this.restaurant = restaurant;
         this.price = price;
     }
@@ -70,4 +76,6 @@ public class Dish extends AbstractNamedEntity {
                 ", price=" + price +
                 '}';
     }
+
+    //TODO add cache for Restaurant
 }
